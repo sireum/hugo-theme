@@ -1,7 +1,7 @@
 <nav class="menu">
     <ul class="menu__inner">
         {{- $currentPage := . -}}
-        {{ range .Site.Menus.main -}}
+        {{ range sort .Site.Menus.main.ByWeight -}}
             <li><a href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
         {{- end }}
 
