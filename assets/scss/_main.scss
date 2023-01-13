@@ -58,6 +58,10 @@ body {
   }
 }
 
+body.dark-theme img {
+  filter: brightness(.8) contrast(1.2);
+}
+
 h2,
 h3,
 h4,
@@ -427,9 +431,4 @@ hr {
   background-attachment: fixed;
   background-size: cover;
   background-position: center center;
-}
-
-// Prism JS Additionals
-.highlight {
-  margin: 30px auto;
 }
