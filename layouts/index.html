@@ -7,11 +7,24 @@
         <div>
             {{ if .Site.Params.Portrait.Path }}
                <img src="{{ .Site.Params.Portrait.Path }}" class="circle" alt="{{ .Site.Params.Portrait.Alt }}" style="max-width:{{ .Site.Params.Portrait.MaxWidth }}" />
+
+              <h1>{{ .Site.Title }}</h1>
+
+              {{ partial "subtitle.html" . }}
+
+            {{ else if .Site.Params.Banner }}
+              <div class="cycle-slideshow post" data-cycle-slides="> a" data-cycle-pause-on-hover="true">
+                {{ range .Site.Params.Banner }}
+                  <a href="{{ .url | safeURL }}"><img class="{{ .cls }}" src="{{ .src }}"></a>
+                {{ end }}
+              </div>
             {{ end }}
 
-            <h1>{{ .Site.Title }}</h1>
-
-            {{ partial "subtitle.html" . }}
+            {{ with .Site.Params.home }}
+              <div align="left">
+                {{ . | readFile | markdownify | safeHTML }}
+              </div>
+            {{ end }}
 
             {{- with .Site.Params.social }}
                 <div>

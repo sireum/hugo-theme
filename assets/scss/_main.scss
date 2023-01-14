@@ -58,7 +58,7 @@ body {
   }
 }
 
-body.dark-theme img {
+body.dark-theme img :not(.color-scheme) {
   filter: brightness(.8) contrast(1.2);
 }
 
@@ -111,7 +111,7 @@ a {
   color: inherit;
 }
 
-img {
+img :not(.color-scheme) {
   display: block;
   max-width: 100%;
 
@@ -132,6 +132,10 @@ img {
     max-width: 25%;
     margin: auto;
   }
+}
+
+img.color-scheme {
+  display: none;
 }
 
 figure {
@@ -206,11 +210,11 @@ em, i, strong {
   }
 
   [data-theme=dark] & {
-    color: white;
+    color: rgb(196, 196, 196);
   }
 
   [data-theme=light] & {
-    color: black;
+    color: #606060;
   }
 }
 
@@ -288,7 +292,7 @@ pre {
 }
 
 blockquote {
-  border-left: 3px solid #3eb0ef;
+  border-left: 3px solid #838383;
   margin: 40px;
   padding: 10px 20px;
 

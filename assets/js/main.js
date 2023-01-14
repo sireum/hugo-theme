@@ -21,6 +21,20 @@ function detectOSColorTheme() {
   } else {
     document.documentElement.setAttribute("data-theme", "light");
   }
+
+  jQuery("img.color-scheme").get().map(function(el) {
+      if (document.documentElement.getAttribute("data-theme") == "dark") {
+        let file = el.src;
+        let i = file.lastIndexOf('.');
+        if (i >= 0) {
+          let newFile = file.substr(0, i) + "-dark" + file.substr(i, file.length);
+          el.src = newFile;
+        }
+      }
+      el.style.display = "block";
+      el.style.width = "100%";
+  });
+
 }
 
 // Switch the theme.

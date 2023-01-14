@@ -61,7 +61,7 @@ $ git submodule add https://github.com/rhazdon/hugo-theme-hello-friend-ng.git th
 
 The theme doesn't require any advanced configuration. Just copy the following config file.
 To see all possible configurations, [check the docs](docs/config.md).
-Note: There are more options to configure. Take a look into the `config.toml` in `exampleSite`.
+Note: There are more options to configure. Take a look at the following: `config.toml`.
 
 ``` toml
 baseurl      = "localhost"
@@ -89,6 +89,16 @@ paginate     = 10
   description = "My new homepage or blog"
   keywords = "homepage, blog"
   images = [""]
+  
+  # Banner (optional) 
+  [[params.banner]]
+    src = "/img/sireum-banner.png"
+    cls = "color-scheme"
+    url = "download/"
+    weight = 1
+
+  # Frontpage (Optional)
+  home = "about.md"
 
 [taxonomies]
     category = "blog"
@@ -132,6 +142,8 @@ Properties:
   - `alt` (optional)
   - `position` (optional, default: `left`, options: [`left`, `center`, `right`])
   - `style`
+  - `cls` (optional, option: [`color-scheme`], which indicates `src` has a dark version 
+    using `-dark` suffix before the file extension)
 
 Example:
 
