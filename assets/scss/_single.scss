@@ -39,6 +39,9 @@
 
   &-content {
     margin-top: 30px;
+    ul:first-of-type {
+      display: none;
+    }
   }
 
   &-cover {
@@ -63,6 +66,7 @@
     font-size: 0.8rem;
     line-height: normal;
     @include dimmed;
+    display: none;
 
     p {
       margin: 0.8em 0;

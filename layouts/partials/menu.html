@@ -3,10 +3,10 @@
   {{ with .entry }}
     {{ if .HasChildren }}
       <div class="submenu">
-        <li class="dropdown">
-          <a href="{{ .URL | relLangURL }}" class="dropbtn">▼&nbsp;{{ .Name }}</a>
-          <div class="dropdown-content">
-            <ul>
+        <li class="dropdown" onmouseover="menuDisplay(this.children[1], true);" onmouseout="menuDisplay(this.children[1], false);">
+          <a class="dropbtn" href="{{ .URL }}">▼&nbsp;{{ .Name }}</a>
+          <div class="dropdown-content" align="left">
+            <ul style="margin:8px;">
               {{ range sort .Children.ByWeight }}
                 {{ template "menu-item" (dict "entry" . "page" $page) }}
               {{ end }}
@@ -15,31 +15,31 @@
         </li>
       </div>
     {{ else }}
-      <li><a onmouseover="this.style.textDecoration='underline';" onmouseout="this.style.textDecoration='none';" href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
+      <div><li><a href="{{ .URL | relLangURL }}" onmouseover="menuUnderline(this, true);" onmouseout="menuUnderline(this, false);" >{{ .Name }}</a></li></div>
     {{ end }}
   {{ end }}
 {{ end }}
 
 <nav class="menu">
-    <ul class="menu__inner">
-        {{- $currentPage := . -}}
-        {{ range sort .Site.Menus.main.ByWeight -}}
-          {{ template "menu-item" (dict "entry" . "page" $currentPage) }}
-        {{- end }}
+  <ul class="menu__inner">
+    {{- $currentPage := . -}}
+    {{ range sort .Site.Menus.main.ByWeight -}}
+      {{ template "menu-item" (dict "entry" . "page" $currentPage) }}
+    {{- end }}
 
-        {{- if .Site.Params.EnableGlobalLanguageMenu }}
-        <div class="submenu">
-            <li class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">▼&nbsp;{{ .Language }}</a>
-                <div class="dropdown-content">
-                    {{ if .Site.IsMultiLingual }}
-                        {{ range $.Translations }}
-                            <a onmouseover="this.style.textDecoration='underline';" onmouseout="this.style.textDecoration='none';" title="{{ .Language }}" href="{{ .Permalink }}">{{ .Language }}</a>
-                        {{ end }}
-                    {{ end }}
-                </div>
-            </li>
-        </div>
-        {{- end }}
-    </ul>
+    {{- if .Site.Params.EnableGlobalLanguageMenu }}
+     <div class="submenu">
+       <li class="dropdown">
+         <a href="javascript:void(0)" class="dropbtn">▼&nbsp;{{ .Language }}</a>
+         <div class="dropdown-content" onmouseover="menuDisplay(this.children[1], true);" onmouseout="menuDisplay(this.children[1], false);">
+           {{ if .Site.IsMultiLingual }}
+             {{ range $.Translations }}
+               <a title="{{ .Language }}" href="{{ .Permalink }}" onmouseover="menuUnderline(this, true);" onmouseout="menuUnderline(this, false);">{{ .Language }}</a>
+             {{ end }}
+           {{ end }}
+         </div>
+       </li>
+     </div>
+    {{- end }}
+  </ul>
 </nav>

@@ -23,16 +23,18 @@ function detectOSColorTheme() {
   }
 
   jQuery("img.color-scheme").get().map(function(el) {
-      if (document.documentElement.getAttribute("data-theme") == "dark") {
-        let file = el.src;
-        let i = file.lastIndexOf('.');
-        if (i >= 0) {
-          let newFile = file.substr(0, i) + "-dark" + file.substr(i, file.length);
-          el.src = newFile;
-        }
+    if (document.documentElement.getAttribute("data-theme") == "dark") {
+      let file = el.src;
+      let i = file.lastIndexOf('.');
+      if (i >= 0) {
+        let newFile = file.substr(0, i) + "-dark" + file.substr(i, file.length);
+        el.src = newFile;
       }
-      el.style.display = "block";
-      el.style.width = "100%";
+    }
+    el.style.width = "100%";
+  });
+  jQuery("img.color-scheme").get().map(function(el) {
+    el.style.display = "block";
   });
 
 }
