@@ -23,13 +23,18 @@ function detectOSColorTheme() {
   }
 
   jQuery("img.color-scheme").get().map(function(el) {
-    if (document.documentElement.getAttribute("data-theme") == "dark") {
-      let file = el.src;
-      let i = file.lastIndexOf('.');
-      if (i >= 0) {
-        let newFile = file.substr(0, i) + "-dark" + file.substr(i, file.length);
-        el.src = newFile;
-      }
+    let file = el.src;
+    var i = file.lastIndexOf('.');
+    if (i < 0) {
+      i = file.length;
+    }
+    let dataTheme = document.documentElement.getAttribute("data-theme");
+    if (dataTheme == "dark" && !el.src.endsWith("-dark", i)) {
+      let newFile = file.substr(0, i) + "-dark" + file.substr(i, file.length);
+      el.src = newFile;
+    } else if (dataTheme == "light" && el.src.endsWith("-dark")) {
+      let newFile = file.substr(0, i - "-dark".length) + file.substr(i, file.length);
+      el.src = newFile;
     }
     el.style.width = "100%";
   });
@@ -68,4 +73,70 @@ if (themeToggle) {
   detectOSColorTheme();
 } else {
   localStorage.removeItem("theme");
+}
+
+function menuUnderline(element, enable) {
+  if (enable) {
+    element.style.textDecoration="underline";
+  } else {
+    element.style.textDecoration="none";
+  }
+}
+function menuDisplay(element, enable) {
+  if (enable) {
+    element.style.display="block";
+  } else {
+    element.style.display="none";
+  }
+}
+function createCopyButton(highlightDiv) {
+  const button = document.createElement("button");
+  button.className = "copy-code-button";
+  button.type = "button";
+  button.innerText = "⧉";
+  button.addEventListener("click", () => copyCodeToClipboard(button, highlightDiv));
+  highlightDiv.insertBefore(button, highlightDiv.firstChild);
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "highlight-wrapper";
+  highlightDiv.parentNode.insertBefore(wrapper, highlightDiv);
+  wrapper.appendChild(highlightDiv);
+}
+
+document.querySelectorAll(".highlight").forEach((highlightDiv) => createCopyButton(highlightDiv));
+
+async function copyCodeToClipboard(button, highlightDiv) {
+  const codeToCopy = highlightDiv.querySelector(":last-child > .chroma > code").innerText;
+  try {
+    var result = await navigator.permissions.query({ name: "clipboard-write" });
+    if (result.state == "granted" || result.state == "prompt") {
+      await navigator.clipboard.writeText(codeToCopy);
+    } else {
+      copyCodeBlockExecCommand(codeToCopy, highlightDiv);
+    }
+  } catch (_) {
+    copyCodeBlockExecCommand(codeToCopy, highlightDiv);
+  } finally {
+ button.blur();
+  button.innerText = "📋";
+  setTimeout(function () {
+    button.innerText = "⧉";
+  }, 500);  }
+}
+
+function copyCodeBlockExecCommand(codeToCopy, highlightDiv) {
+  const textArea = document.createElement("textArea");
+  textArea.contentEditable = "true";
+  textArea.readOnly = "false";
+  textArea.className = "copyable-text-area";
+  textArea.value = codeToCopy;
+  highlightDiv.insertBefore(textArea, highlightDiv.firstChild);
+  const range = document.createRange();
+  range.selectNodeContents(textArea);
+  const sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+  textArea.setSelectionRange(0, 999999);
+  document.execCommand("copy");
+  highlightDiv.removeChild(textArea);
 }
