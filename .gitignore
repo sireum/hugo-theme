@@ -36,3 +36,7 @@ Temporary Items
 
 # customize Headers whiteout touch git submodule.
 layouts/partials/extra-head.html
+
+/exampleSite/.hugo_build.lock
+/exampleSite/resources/_gen
+/exampleSite/themes
