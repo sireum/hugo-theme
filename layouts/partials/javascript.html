@@ -11,3 +11,20 @@
 {{ end }}
 <script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/thecarnie-cycle2/2.1.6c/jquery.cycle2.min.js"></script>
 <script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"></script>
+
+{{- if .Site.Params.search }}
+  <script type="text/javascript" src="/_pagefind/pagefind-ui.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+      new PagefindUI({
+        element: "#search",
+        showEmptyFilters: true,
+        mergeIndex: [
+          {{ range $val := $.Site.Params.mergeIndex }}
+            { bundlePath: "{{ $val }}" },
+          {{ end }}
+        ]
+      });
+    });
+  </script>
+{{- end }}

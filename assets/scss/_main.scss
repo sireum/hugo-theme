@@ -50,8 +50,36 @@ body {
   [data-theme=dark] & {
     background-color: $dark-background;
     color: $dark-color;
-  }
+    --pagefind-ui-primary: $light-color;
+    --pagefind-ui-text: lightgrey;
+    --pagefind-ui-background: $dark-background;
+    --pagefind-ui-border: #3a3a3a;
+    --pagefind-ui-tag: $dark-color;
+    }
 
+  [data-theme=light] & {
+    background-color: $light-background;
+    color: $light-color;
+    --pagefind-ui-primary: $light-color;
+    --pagefind-ui-text: dimgrey;
+    --pagefind-ui-background: $dark-background;
+    --pagefind-ui-border: #e8e8e8;
+    --pagefind-ui-tag: $light-color;
+  }
+}
+
+.pagefind-ui {
+  overflow-y: scroll;
+  height: 85vh;
+}
+
+#search {
+  margin-left: calc(-100vw + 45px);
+  width: calc(100vw);
+  [data-theme=dark] & {
+    background-color: $dark-background;
+    color: $dark-color;
+  }
   [data-theme=light] & {
     background-color: $light-background;
     color: $light-color;
