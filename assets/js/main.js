@@ -21,7 +21,6 @@ function detectOSColorTheme() {
   } else {
     document.documentElement.setAttribute("data-theme", "light");
   }
-
   jQuery("img.color-scheme").get().map(function(el) {
     let file = el.src;
     var i = file.lastIndexOf('.');
@@ -38,11 +37,17 @@ function detectOSColorTheme() {
     }
     el.style.width = "100%";
   });
+}
+
+function showColorSchemeImages() {
   jQuery("img.color-scheme").get().map(function(el) {
     el.style.display = "block";
   });
-
 }
+
+window.addEventListener('load', function () {
+  showColorSchemeImages();
+})
 
 // Switch the theme.
 function switchTheme(e) {
