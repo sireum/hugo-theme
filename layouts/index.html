@@ -21,7 +21,7 @@
             {{ end }}
 
             {{ with .Site.Params.home }}
-              <div align="left">
+              <div id="home" class="post">
                 {{ . | readFile | markdownify | safeHTML }}
               </div>
             {{ end }}
