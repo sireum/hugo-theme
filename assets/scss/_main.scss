@@ -464,3 +464,14 @@ hr {
   background-size: cover;
   background-position: center center;
 }
+
+.cycle-slideshow img {
+
+  [data-theme=dark] & {
+    border: 1px solid $dark-border-color;
+  }
+
+  [data-theme=light] & {
+    border: 1px solid $light-border-color;
+  }
+}
