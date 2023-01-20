@@ -4,7 +4,7 @@
     {{ if .HasChildren }}
       <div class="submenu">
         <li class="dropdown" onmouseover="menuDisplay(this.children[1], true);" onmouseout="menuDisplay(this.children[1], false);">
-          <a class="dropbtn" href="{{ .URL }}">▼&nbsp;{{ .Name }}</a>
+          <a class="dropbtn" href="{{ .URL }}">{{ .Name }}&nbsp;<small>ᐁ</small></a>
           <div class="dropdown-content" align="left">
             <ul style="margin:8px;">
               {{ range sort .Children.ByWeight }}
