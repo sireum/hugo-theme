@@ -15,7 +15,7 @@
             {{ else if .Site.Params.Banner }}
               <div class="cycle-slideshow post" data-cycle-slides="> a" data-cycle-pause-on-hover="true" data-cycle-log="false">
                 {{ range .Site.Params.Banner }}
-                  <a href="{{ .url | safeURL }}" {{- with .timeout -}}data-cycle-timeout="{{ . }}"{{- end -}}><img class="{{ .cls }}" src="{{ .src }}"></a>
+                  <a href="{{ .url | safeURL }}" {{- with .timeout -}}data-cycle-timeout="{{ . }}"{{- end -}}><img class="{{ .cls }} banner" src="{{ .src }}"></a>
                 {{ end }}
               </div>
             {{ end }}

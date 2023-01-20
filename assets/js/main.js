@@ -43,6 +43,9 @@ function showColorSchemeImages() {
   jQuery("img.color-scheme").get().map(function(el) {
     el.style.display = "block";
   });
+  jQuery("img.banner").get().map(function(el) {
+    el.style.display = "block";
+  });
 }
 
 window.addEventListener('load', function () {
