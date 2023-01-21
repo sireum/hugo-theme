@@ -61,3 +61,16 @@
   -moz-user-select: none;    
   -ms-user-select: none;      
 }
+
+#search {
+  margin-left: calc(-100vw + 39px);
+  width: calc(100vw);
+  [data-theme=dark] & {
+    background-color: $dark-background;
+    color: $dark-color;
+  }
+  [data-theme=light] & {
+    background-color: $light-background;
+    color: $light-color;
+  }
+}
