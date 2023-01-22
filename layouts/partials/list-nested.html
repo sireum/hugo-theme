@@ -1,0 +1,10 @@
+{{- with .Pages -}}
+  <ul>
+    {{- range .ByWeight -}}
+      <li>
+        <a href="{{.Permalink}}"><span>{{.Title}}</span></a>
+        {{- partial "list-nested.html" . -}}
+      </li>
+    {{- end -}}
+  </ul>
+{{- end -}}

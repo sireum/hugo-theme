@@ -1,0 +1,11 @@
+.jstree-default .jstree-hovered {
+  text-decoration: underline;
+  background: $light-background;
+  color: $light-color;
+}
+
+.jstree-default-dark .jstree-hovered {
+  text-decoration: underline;
+  background: $dark-background;
+  color: $dark-color;
+}
