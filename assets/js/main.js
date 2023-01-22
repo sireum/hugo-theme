@@ -148,3 +148,7 @@ function copyCodeBlockExecCommand(codeToCopy, highlightDiv) {
   document.execCommand("copy");
   highlightDiv.removeChild(textArea);
 }
+
+function searchFocus() {
+ document.querySelector("#search > div > form > input").focus();
+}
