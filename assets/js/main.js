@@ -184,8 +184,22 @@ function detectOs() {
   return "Unknown";
 }
 
-function isArm() {
-  return navigator.platform.indexOf("arm") != -1 || navigator.platform.indexOf("aarch") != -1;
+function armString() {
+  if (navigator.platform.indexOf("aarch64") != -1) return " (aarch64";
+  if (navigator.platform.indexOf("arm") != -1 || navigator.platform.indexOf("aarch") != -1) return " (aarch";
+  return "";
+}
+
+function tryClickTab(tabNav, itemSubstring) {
+  var found = false;
+  for (button of tabNav.children) if (!found) {
+    item = button.getAttribute("data-tab-item")
+    if (item.indexOf(itemSubstring) != -1) {
+      found = true;
+      button.click();
+    }
+  }
+  return found;
 }
 
 function restoreTabSelections() {
@@ -201,19 +215,10 @@ function restoreTabSelections() {
     }
   }
   os = detectOs();
+  arm = armString();
   jQuery(".tab-nav").get().forEach(tabNav => {
-    for (button of tabNav.children) {
-      item = button.getAttribute("data-tab-item")
-      shouldClick = false;
-      if (item.indexOf(os) != -1) {
-        if (os == "Linux") {
-          if (isArm()) shouldClick = item.indexOf("aarch") != -1;
-          else shouldClick = item.indexOf("aarch") == -1;
-        } else {
-          shouldClick = true;
-        }
-      }
-      if (shouldClick) button.click();
+    if (!tryClickTab(tabNav, os + arm)) {
+      tryClickTab(tabNav, os);
     }
   });
 }
