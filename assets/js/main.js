@@ -22,17 +22,17 @@ function detectOSColorTheme() {
     document.documentElement.setAttribute("data-theme", "light");
   }
   jQuery("img.color-scheme").get().map(function(el) {
-    let file = el.src;
+    file = el.src;
     var i = file.lastIndexOf('.');
     if (i < 0) {
       i = file.length;
     }
-    let dataTheme = document.documentElement.getAttribute("data-theme");
+    dataTheme = document.documentElement.getAttribute("data-theme");
     if (dataTheme == "dark" && !el.src.endsWith("-dark", i)) {
-      let newFile = file.substr(0, i) + "-dark" + file.substr(i, file.length);
+      newFile = file.substr(0, i) + "-dark" + file.substr(i, file.length);
       el.src = newFile;
     } else if (dataTheme == "light" && el.src.endsWith("-dark")) {
-      let newFile = file.substr(0, i - "-dark".length) + file.substr(i, file.length);
+      newFile = file.substr(0, i - "-dark".length) + file.substr(i, file.length);
       el.src = newFile;
     }
     el.style.width = "100%";
@@ -47,10 +47,6 @@ function showColorSchemeImages() {
     el.style.display = "block";
   });
 }
-
-window.addEventListener('load', function () {
-  showColorSchemeImages();
-})
 
 // Switch the theme.
 function switchTheme(e) {
@@ -150,5 +146,80 @@ function copyCodeBlockExecCommand(codeToCopy, highlightDiv) {
 }
 
 function searchFocus() {
- document.querySelector("#search > div > form > input").focus();
+  document.querySelector("#search > div > form > input").focus();
 }
+
+function switchTab(isButtonEvent, tabGroup, tabId) {
+  allTabItems = jQuery("[data-tab-group='" + tabGroup + "']");
+  targetTabItems = jQuery("[data-tab-group='" + tabGroup + "'][data-tab-item='" + tabId + "']");
+
+  if (isButtonEvent) {
+    var yposButton = event.target.getBoundingClientRect().top;
+  }
+
+  allTabItems.removeClass("active");
+  targetTabItems.addClass("active");
+
+  if (isButtonEvent) {
+    var yposButtonDiff = event.target.getBoundingClientRect().top - yposButton;
+    window.scrollTo(window.scrollX, window.scrollY+yposButtonDiff);
+
+    if (window.localStorage) {
+      var selectionsJSON = window.localStorage.getItem("tabSelections");
+      if (selectionsJSON) {
+        var tabSelections = JSON.parse(selectionsJSON);
+      } else {
+        var tabSelections = {};
+      }
+      tabSelections[tabGroup] = tabId;
+      window.localStorage.setItem("tabSelections", JSON.stringify(tabSelections));
+    }
+  }
+}
+
+function detectOs() {
+  if (navigator.appVersion.indexOf("Win") != -1) return "Windows";
+  if (navigator.appVersion.indexOf("Mac") != -1) return "macOS";
+  if (navigator.appVersion.indexOf("Linux") != -1) return "Linux";
+  return "Unknown";
+}
+
+function isArm() {
+  return navigator.platform.indexOf("arm") != -1 || navigator.platform.indexOf("aarch") != -1;
+}
+
+function restoreTabSelections() {
+  if (window.localStorage) {
+    selectionsJSON = window.localStorage.getItem("tabSelections");
+    if (selectionsJSON) {
+      let tabSelections = JSON.parse(selectionsJSON);
+      Object.keys(tabSelections).forEach(function(tabGroup) {
+        var tabItem = tabSelections[tabGroup];
+        switchTab(false, tabGroup, tabItem);
+      });
+      return;
+    }
+  }
+  os = detectOs();
+  jQuery(".tab-nav").get().forEach(tabNav => {
+    for (button of tabNav.children) {
+      item = button.getAttribute("data-tab-item")
+      shouldClick = false;
+      if (item.indexOf(os) != -1) {
+        if (os == "Linux") {
+          if (isArm()) shouldClick = item.indexOf("aarch") != -1;
+          else shouldClick = item.indexOf("aarch") == -1;
+        } else {
+          shouldClick = true;
+        }
+      }
+      if (shouldClick) button.click();
+    }
+  });
+}
+
+window.addEventListener('load', function () {
+  showColorSchemeImages();
+  restoreTabSelections();
+})
+
