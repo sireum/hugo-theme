@@ -1,6 +1,6 @@
 [data-theme=light] {
 /* Background */ .bg { background-color: #e8e8e8; }
-/* PreWrapper */ .chroma { background-color: #e8e8e8; }
+/* PreWrapper */ .chroma { background-color: #e8e8e8; overflow: auto; }
 /* Other */ .chroma .x {  }
 /* Error */ .chroma .err { color: #a61717; background-color: #e3d2d2 }
 /* CodeLine */ .chroma .cl { color: $light-color; }
@@ -88,13 +88,13 @@
 }
 [data-theme=dark] {
 /* Background */ .bg { color: #c9d1d9; background-color: #3a3a3a; }
-/* PreWrapper */ .chroma { color: #c9d1d9; background-color: #3a3a3a; }
+/* PreWrapper */ .chroma { color: #c9d1d9; background-color: #3a3a3a; overflow: auto; }
 /* Other */ .chroma .x {  }
 /* Error */ .chroma .err { color: #f85149 }
 /* CodeLine */ .chroma .cl { color: $dark-color }
 /* LineLink */ .chroma .lnlinks { outline: none; text-decoration: none; color: inherit }
 /* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
-/* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; }
+/* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; border-color: $dark-background; }
 /* LineHighlight */ .chroma .hl { background-color: #ffffcc }
 /* LineNumbersTable */ .chroma .lnt { white-space: pre; user-select: none; margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #64686c }
 /* LineNumbers */ .chroma .ln { white-space: pre; user-select: none; margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #6e7681 }
@@ -173,4 +173,8 @@
 /* GenericTraceback */ .chroma .gt { color: #ff7b72 }
 /* GenericUnderline */ .chroma .gl { text-decoration: underline }
 /* TextWhitespace */ .chroma .w { color: #6e7681 }
+}
+
+.post-content div.chroma table tbody tr {
+  border: 0;
 }
