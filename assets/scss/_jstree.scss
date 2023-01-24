@@ -10,6 +10,14 @@
   color: $dark-color;
 }
 
+.jstree-default .jstree-clicked {
+  background: $light-background;
+}
+
+.jstree-default-dark .jstree-clicked {
+  background: $dark-background;
+}
+
 #page-tree {
   display: none;
 }
