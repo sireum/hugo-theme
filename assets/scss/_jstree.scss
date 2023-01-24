@@ -12,10 +12,12 @@
 
 .jstree-default .jstree-clicked {
   background: $light-background;
+  color: $light-color;
 }
 
 .jstree-default-dark .jstree-clicked {
   background: $dark-background;
+  color: $dark-color;
 }
 
 #page-tree {
