@@ -56,6 +56,16 @@
       plugins: [ "ui" ],
     }).bind("select_node.jstree", function (e, data) {
       document.location.href = data.node.a_attr.href;
+    }).bind("ready.jstree", function (event, data) {
+      $(this).jstree("open_all");
+    }).bind("open_all.jstree", function (event, data) {
+      level = {{if .Params.expandLevel}}{{.Params.expandLevel}}{{else}}0{{end}};
+      data.instance.element.find('li').each(function() {
+        if (level > 0 && data.instance.get_path(this).length >= level){
+          data.instance.close_node(this);
+        }
+      });
+      data.instance.element.get()[0].style.display="block";
     });
   });
 </script>

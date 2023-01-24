@@ -86,6 +86,7 @@ function menuUnderline(element, enable) {
     element.style.textDecoration="none";
   }
 }
+
 function menuDisplay(element, enable) {
   if (enable) {
     element.style.display="block";
@@ -93,6 +94,7 @@ function menuDisplay(element, enable) {
     element.style.display="none";
   }
 }
+
 function createCopyButton(highlightDiv) {
   const button = document.createElement("button");
   button.className = "copy-code-button";
@@ -106,8 +108,6 @@ function createCopyButton(highlightDiv) {
   highlightDiv.parentNode.insertBefore(wrapper, highlightDiv);
   wrapper.appendChild(highlightDiv);
 }
-
-document.querySelectorAll(".highlight").forEach((highlightDiv) => createCopyButton(highlightDiv));
 
 async function copyCodeToClipboard(button, highlightDiv) {
   const codeToCopy = highlightDiv.querySelector(":last-child > .chroma > code").innerText;
@@ -223,8 +223,9 @@ function restoreTabSelections() {
   });
 }
 
+document.querySelectorAll(".highlight").forEach((highlightDiv) => createCopyButton(highlightDiv));
+
 window.addEventListener('load', function () {
   showColorSchemeImages();
   restoreTabSelections();
 })
-

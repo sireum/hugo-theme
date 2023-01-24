@@ -2,7 +2,7 @@
   <ul>
     {{- range .ByWeight -}}
       <li>
-        <a href="{{.Permalink}}"><span>{{.Title}}</span></a>
+        <a href="{{.Permalink}}"><span>{{if .Params.treeTitle}}{{.Params.treeTitle}}{{else}}{{.Title}}{{end}}</span></a>
         {{- partial "list-nested.html" . -}}
       </li>
     {{- end -}}
