@@ -1,30 +1,28 @@
-{{if .Parent.IsSection}}
+{{ if .Parent.IsSection }}
 <div style="display: grid; grid-template-columns: 2% 49% 49%; text-align: center;">
-    {{ if .Parent.Pages }}
-    <div class="submenu" style="background: transparent; text-align: left;">
-        <li class="dropdown" onmouseover="menuDisplay(this.children[1], true);" onmouseout="menuDisplay(this.children[1], false);">
-            <a class="dropbtn" href="{{.Parent.Permalink}}"><i class="fa-solid fa-square-caret-up"></i></a>
-            <div class="dropdown-content">
-                {{- range (where .Parent.Pages "Title" "!=" .Title).ByWeight -}}
-                <a class="post-item-inner" href="{{.Permalink}}" onmouseover="menuUnderline(this, true);" onmouseout="menuUnderline(this, false);">{{.Title}}</a>
-                {{- end -}}
-            </div>
-        </li>
-    </div>
-    {{ else }}
-    <a href="{{.Parent.Permalink}}"><i class="fa-solid fa-square-caret-up"></i></a>
-    {{ end }}
-    <div style="text-align: left;">
-        {{if .NextInSection}}
-        <a href="{{.NextInSection.Permalink}}" style="text-decoration: none;" onmouseover="menuUnderline(this, true);" onmouseout="menuUnderline(this, false);">
-            <i class="fa-solid fa-square-caret-left"></i> {{.NextInSection.Title}}
-        </a>
-        {{end}}
-    </div>
-    <div style="text-align: right;">{{if .PrevInSection}}
-        <a href="{{.PrevInSection.Permalink}}" style="text-decoration: none;" onmouseover="menuUnderline(this, true);" onmouseout="menuUnderline(this, false);">{{.PrevInSection.Title}}
-            <i class="fa-solid fa-square-caret-right"></i>
-        </a>{{end}}
-    </div>
+  <div class="submenu" style="background: transparent; text-align: left; position: relative;">
+    <li class="dropdown" onmouseover="menuDisplay(this.children[1], true);" onmouseout="menuDisplay(this.children[1], false);">
+      <a class="dropbtn" href=""><i class="fa-solid fa-angles-up"></i></a>
+      <div class="dropdown-content" style="bottom: 100%;">
+        {{- range (where .Ancestors "Title" "!=" "").Reverse -}}
+        <a class="post-item-inner" href="{{.Permalink}}" onmouseover="menuUnderline(this, true);" onmouseout="menuUnderline(this, false);">{{if .Params.treeTitle}}{{.Params.treeTitle}}{{else}}{{.Title}}{{end}}</a>
+        {{- end -}}
+      </div>
+    </li>
+  </div>
+  <div style="text-align: left;">
+    {{if .NextInSection}}
+      <a href="{{.NextInSection.Permalink}}" style="text-decoration: none;" onmouseover="menuUnderline(this, true);" onmouseout="menuUnderline(this, false);">
+        <i class="fa-solid fa-chevron-left"></i> {{.NextInSection.Title}}
+      </a>
+    {{end}}
+  </div>
+  <div style="text-align: right;">
+    {{if .PrevInSection}}
+      <a href="{{.PrevInSection.Permalink}}" style="text-decoration: none;" onmouseover="menuUnderline(this, true);" onmouseout="menuUnderline(this, false);">{{.PrevInSection.Title}}
+        <i class="fa-solid fa-chevron-right"></i>
+      </a>
+    {{end}}
+  </div>
 </div>
 {{end}}
