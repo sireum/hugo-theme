@@ -20,12 +20,12 @@ $dark-color-secondary: #b3b3bd;
 $dark-border-color: #4e4e57;
 $dark-table-color: #4e4e57;
 
-$media-size-phone: "(max-width: 684px)";
+$media-size-phone: "(max-width: 800px)";
 $media-size-tablet: "(max-width: 900px)";
 
 /* Variables for js, must be the same as these in @custom-media queries */
 :root {
-  --phoneWidth: (max-width: 684px);
+  --phoneWidth: (max-width: 800px);
   --tabletWidth: (max-width: 900px);
 }
 
