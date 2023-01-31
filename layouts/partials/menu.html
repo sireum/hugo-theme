@@ -4,7 +4,10 @@
     {{ if .HasChildren }}
       <div class="submenu">
         <li class="dropdown" onmouseover="menuDisplay(this.children[1], true);" onmouseout="menuDisplay(this.children[1], false);">
-          <a class="dropbtn" href="{{ .URL }}" {{if .URL}}onmouseover="menuUnderline(this, true);" onmouseout="menuUnderline(this, false);"{{end}}>{{ .Name }}&nbsp;<small>ᐁ</small></a>
+          <a class="dropbtn" href="{{ .URL }}" {{if .URL}}onmouseover="menuUnderline(this, true);" onmouseout="menuUnderline(this, false);"{{else}}style="pointer-events: none; cursor: default;"{{end}}>
+            <span class="responsive-title-long">{{ .Name | safeHTML }}&nbsp;<small>ᐁ</small></span>
+            <span class="responsive-title-short">{{ .Identifier | safeHTML }}&nbsp;<small>ᐁ</small></span>
+          </a>
           <div class="dropdown-content" align="left">
             <ul style="margin:8px;">
               {{ range sort .Children.ByWeight }}
@@ -15,7 +18,14 @@
         </li>
       </div>
     {{ else }}
-      <div><li><a href="{{ .URL | relLangURL }}" onmouseover="menuUnderline(this, true);" onmouseout="menuUnderline(this, false);">{{ .Name }}</a></li></div>
+      <div>
+        <li>
+          <a href="{{ .URL | relLangURL }}" onmouseover="menuUnderline(this, true);" onmouseout="menuUnderline(this, false);">
+            <span class="responsive-title-long">{{ .Name | safeHTML }}</span>
+            <span class="responsive-title-short">{{ .Identifier | safeHTML }}</span>
+          </a>
+        </li>
+      </div>
     {{ end }}
   {{ end }}
 {{ end }}
