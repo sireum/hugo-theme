@@ -1,6 +1,15 @@
 {{ define "main" }}
 
     <main class="posts">
+        {{- if .Params.toc }}
+        <hr />
+        <aside id="toc">
+            <div class="toc-title">{{ i18n "tableOfContents" }}</div>
+            {{ .TableOfContents }}
+        </aside>
+        <hr />
+        {{- end }}
+
         <h1>{{ .Title }}</h1>
 
         {{ if .Content }}
